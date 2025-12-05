@@ -1,12 +1,15 @@
 import React from 'react';
 import { List, X } from 'phosphor-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '../ui/Button';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import { clsx } from 'clsx';
 
 export const Navbar = () => {
     const [isScrolled, setIsScrolled] = React.useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     React.useEffect(() => {
         const handleScroll = () => {
@@ -17,12 +20,33 @@ export const Navbar = () => {
     }, []);
 
     const navLinks = [
-        { name: 'Features', href: '#features' },
-        { name: 'How it Works', href: '#how-it-works' },
-        { name: 'Pricing', href: '#pricing' },
-        { name: 'Testimonials', href: '#testimonials' },
-        { name: 'FAQ', href: '#faq' },
+        { name: 'Home', path: '/', isPage: true },
+        { name: 'About', path: '/about', isPage: true },
+        { name: 'How it Works', path: '#how-it-works', isScroll: true },
+        { name: 'Contact', path: '/contact', isPage: true },
     ];
+
+    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
+        e.preventDefault();
+
+        if (link.isPage) {
+            navigate(link.path);
+            window.scrollTo(0, 0);
+        } else if (link.isScroll) {
+            if (location.pathname !== '/') {
+                navigate('/');
+                // Wait for navigation then scroll
+                setTimeout(() => {
+                    const element = document.querySelector(link.path);
+                    element?.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            } else {
+                const element = document.querySelector(link.path);
+                element?.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        setIsMobileMenuOpen(false);
+    };
 
     return (
         <nav
@@ -32,7 +56,14 @@ export const Navbar = () => {
             )}
         >
             <div className="container mx-auto px-6 flex items-center justify-between">
-                <a href="#" className="text-2xl font-bold tracking-tight text-white">
+                <a
+                    href="/"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        navigate('/');
+                    }}
+                    className="text-2xl font-bold tracking-tight text-white"
+                >
                     QueryDoc<span className="text-primary">.AI</span>
                 </a>
 
@@ -41,20 +72,21 @@ export const Navbar = () => {
                     {navLinks.map((link) => (
                         <a
                             key={link.name}
-                            href={link.href}
-                            className="text-sm font-medium text-text-secondary hover:text-white transition-colors"
+                            href={link.path}
+                            onClick={(e) => handleNavClick(e, link)}
+                            className={clsx(
+                                "text-sm font-medium transition-colors cursor-pointer",
+                                location.pathname === link.path
+                                    ? "text-white"
+                                    : "text-text-secondary hover:text-white"
+                            )}
                         >
                             {link.name}
                         </a>
                     ))}
                 </div>
 
-                <div className="hidden md:flex items-center gap-4">
-                    <a href="#" className="text-sm font-medium text-white hover:text-primary transition-colors">
-                        Login
-                    </a>
-                    <Button size="sm">Get Started</Button>
-                </div>
+
 
                 {/* Mobile Menu Button */}
                 <button
@@ -96,18 +128,19 @@ export const Navbar = () => {
                                 {navLinks.map((link) => (
                                     <a
                                         key={link.name}
-                                        href={link.href}
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className="text-lg font-medium text-text-secondary hover:text-white transition-colors"
+                                        href={link.path}
+                                        onClick={(e) => handleNavClick(e, link)}
+                                        className={clsx(
+                                            "text-lg font-medium transition-colors cursor-pointer",
+                                            location.pathname === link.path
+                                                ? "text-white"
+                                                : "text-text-secondary hover:text-white"
+                                        )}
                                     >
                                         {link.name}
                                     </a>
                                 ))}
-                                <hr className="border-white/10 my-2" />
-                                <a href="#" className="text-lg font-medium text-white hover:text-primary transition-colors">
-                                    Login
-                                </a>
-                                <Button className="w-full">Get Started</Button>
+
                             </div>
                         </motion.div>
                     </>

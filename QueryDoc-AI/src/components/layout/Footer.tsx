@@ -9,15 +9,11 @@ export const Footer = () => {
                             QueryDoc<span className="text-primary">.AI</span>
                         </a>
                         <p className="text-sm text-text-tertiary">
-                            © 2024 QueryDoc AI Inc. All rights reserved.
+                            © 2024 QueryDoc AI. All rights.
                         </p>
                     </div>
 
-                    <div className="flex gap-8 text-sm text-text-secondary">
-                        <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-                        <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-                        <a href="#" className="hover:text-white transition-colors">Contact Us</a>
-                    </div>
+
 
                     <div className="flex gap-4">
                         {/* Social Icons could go here */}

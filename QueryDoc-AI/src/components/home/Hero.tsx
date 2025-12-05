@@ -10,7 +10,7 @@ export const Hero = () => {
     return (
         <section className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden">
             {/* Background Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-hero-glow opacity-20 blur-[120px] rounded-full pointer-events-none" />
+            <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-hero-glow opacity-20 blur-[120px] rounded-full pointer-events-none" />
 
             <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
                 <motion.div
@@ -48,7 +48,7 @@ export const Hero = () => {
                     className="flex flex-col sm:flex-row gap-4 mb-20"
                 >
                     <Button size="lg">Get Started</Button>
-                    <Button size="lg" variant="outline">Learn how it works</Button>
+                    <Button size="lg" variant="outline" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>Learn how it works</Button>
                 </motion.div>
 
                 {/* Interactive Chat Demo */}
