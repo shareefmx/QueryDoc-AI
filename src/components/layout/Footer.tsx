@@ -9,7 +9,7 @@ export const Footer = () => {
                             QueryDoc<span className="text-primary">.AI</span>
                         </a>
                         <p className="text-sm text-text-tertiary">
-                            © 2024 QueryDoc AI. All rights.
+                            © 2025 QueryDoc AI. All rights.
                         </p>
                     </div>
 
