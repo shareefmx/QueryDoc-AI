@@ -61,6 +61,7 @@ export const Hero = () => {
     const [chatSession, setChatSession] = React.useState<any>(null);
     const [activeModelIndex, setActiveModelIndex] = React.useState(0);
     const [chatHistoryBase, setChatHistoryBase] = React.useState<any[]>([]);
+    const [isTyping, setIsTyping] = React.useState(false);
 
     const fileInputRef = React.useRef<HTMLInputElement>(null);
     const chatContainerRef = React.useRef<HTMLDivElement>(null);
@@ -191,6 +192,7 @@ export const Hero = () => {
         const updatedMessages = [...messages, newUserMessage];
         setMessages(updatedMessages);
         setInputValue('');
+        setIsTyping(true);
 
         let currentSession = chatSession;
         let modelIndex = activeModelIndex;
@@ -265,6 +267,7 @@ export const Hero = () => {
             };
             setMessages(prev => [...prev, errorResponse]);
         }
+        setIsTyping(false);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -412,8 +415,37 @@ export const Hero = () => {
                                                             }`}>
                                                             {message.content}
                                                         </div>
+
                                                     </motion.div>
                                                 ))}
+                                                {isTyping && (
+                                                    <motion.div
+                                                        initial={{ opacity: 0, y: 10 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        className="w-full flex justify-start gap-4"
+                                                    >
+                                                        <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-primary/20">
+                                                            <Sparkle size={16} className="text-primary" weight="fill" />
+                                                        </div>
+                                                        <div className="bg-surface border border-white/5 rounded-2xl rounded-tl-none p-4 text-sm text-text-secondary flex items-center gap-1.5 h-[54px]">
+                                                            <motion.div
+                                                                animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+                                                                transition={{ repeat: Infinity, duration: 1, repeatDelay: 0.2 }}
+                                                                className="w-2 h-2 bg-primary rounded-full"
+                                                            />
+                                                            <motion.div
+                                                                animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+                                                                transition={{ repeat: Infinity, duration: 1, repeatDelay: 0.2, delay: 0.2 }}
+                                                                className="w-2 h-2 bg-primary rounded-full"
+                                                            />
+                                                            <motion.div
+                                                                animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+                                                                transition={{ repeat: Infinity, duration: 1, repeatDelay: 0.2, delay: 0.4 }}
+                                                                className="w-2 h-2 bg-primary rounded-full"
+                                                            />
+                                                        </div>
+                                                    </motion.div>
+                                                )}
                                             </div>
 
                                             {/* Input Area */}
