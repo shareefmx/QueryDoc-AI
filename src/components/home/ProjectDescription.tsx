@@ -14,7 +14,7 @@ export const ProjectDescription = () => {
                     <p>
                         The development was accelerated with the help of <span className="text-text-primary font-semibold">Google Antigravity software</span> for
                         coding. Every image and icon was uniquely created by <span className="text-text-primary font-semibold">Google Gemini</span>.
-                        The <span className="text-text-primary font-semibold">AI model</span> is also utilized to analyze documents and reply to questions.
+                        The <span className="text-text-primary font-semibold">gemini-2.0-flash-lite, gemini-2.0-flash and gemini-2.0-flash-lite-001 AI model</span> is also utilized to analyze documents and reply to questions.
                     </p>
                     <p>
                         This project is a testament to what can be achieved when engineering expertise meets
